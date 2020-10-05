@@ -1,0 +1,17 @@
+# Created by Fynne's Python hashlib bench.py - https://github.com/SharkyRawr/python-hashlib-benchmark
+# This file has been created on a: x86_64
+Hash;Duration in ns
+blake2b;1629602412
+blake2s;2246828930
+md5;1603201244
+sha1;1149760425
+sha224;2470852689
+sha256;2470323302
+sha384;1664502512
+sha3_224;3075381285
+sha3_256;3266626452
+sha3_384;4208462025
+sha3_512;6083327390
+sha512;1669459571
+shake_128;2689575198
+shake_256;3246550864
