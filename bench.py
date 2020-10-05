@@ -42,10 +42,10 @@ def bench() -> None:
         TEST_BUFFER = f.read()
 
     results = {}
-    print("# Created by Fynnes Python hashlib bench.py")
+    print("# Created by Fynne's Python hashlib bench.py - https://github.com/SharkyRawr/python-hashlib-benchmark")
     print("# This file has been created on a:", platform.processor())
     print('Hash;Duration in ns')
-    for a in hashlib.algorithms_available:
+    for a in sorted(hashlib.algorithms_available):
         if not hasattr(hashlib, a):
             continue
         start = time.time_ns()
