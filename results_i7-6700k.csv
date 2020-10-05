@@ -1,0 +1,17 @@
+# Created by Fynne's Python hashlib bench.py - https://github.com/SharkyRawr/python-hashlib-benchmark
+# This file has been created on a: Intel64 Family 6 Model 94 Stepping 3, GenuineIntel
+Hash;Duration in ns
+blake2b;1672710900
+blake2s;2631934500
+md5;1340392400
+sha1;946477200
+sha224;2059167600
+sha256;2090974000
+sha384;1366344900
+sha3_224;2679880500
+sha3_256;2828408700
+sha3_384;3677934500
+sha3_512;5300286100
+sha512;1367339200
+shake_128;2302052400
+shake_256;2863800200
