@@ -6,6 +6,12 @@ import platform
 import time
 from typing import Callable
 
+tqdm = None
+try:
+    import tqdm
+except:
+    pass
+
 TEST_DATA_SIZE = 1024*1024*1024  # 1GB
 TEST_BUFFER = bytes()
 
@@ -42,20 +48,35 @@ def bench() -> None:
 
     with open('test.bin', 'rb') as f:
         TEST_BUFFER = f.read()
+    if len(TEST_BUFFER) != TEST_DATA_SIZE:
+        raise Exception("test buffer is the expected size")
 
     results = {}
-    print("# Created by Fynne's Python hashlib bench.py - https://github.com/SharkyRawr/python-hashlib-benchmark")
-    print("# This file has been created on a:", platform.processor())
-    print('Hash;Duration in ns')
-    for a in sorted(hashlib.algorithms_available):
-        if not hasattr(hashlib, a):
-            continue
-        start = time.time_ns()
-        hashit(getattr(hashlib, a), TEST_BUFFER)
-        duration = time.time_ns() - start
-        msg = "{};{}".format(a, duration)
-        print(msg)
-        log(msg)
+    with open("results.csv", "w") as f:
+        f.write("# Created by Fynne's Python hashlib bench.py - https://github.com/SharkyRawr/python-hashlib-benchmark ,,\n")
+        f.write("# This file has been created on a: " + platform.processor() + ',,\n')
+        f.write('Hash,Duration in ns,bytes per second\n')
+        if tqdm:
+            pb = tqdm.tqdm(total=len(list(hashlib.algorithms_available)))
+        else:
+            pb = None
+        for a in sorted(hashlib.algorithms_available):
+            if not hasattr(hashlib, a):
+                if tqdm:
+                    pb.update()
+                continue
+            start = time.time_ns()
+            hashit(getattr(hashlib, a), TEST_BUFFER)
+            duration = time.time_ns() - start
+            bps = (len(TEST_BUFFER) / duration) * 1e9
+            msg = "{},{},{}".format(a, duration, bps)
+            f.write(msg + "\n")
+            if tqdm:
+                pb.write(msg)
+                pb.update()
+        if tqdm:
+            pb.close()
+    log("Done!")
 
 
 if __name__ == '__main__':
