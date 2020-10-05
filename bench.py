@@ -54,7 +54,8 @@ def bench() -> None:
     results = {}
     with open("results.csv", "w") as f:
         f.write("# Created by Fynne's Python hashlib bench.py - https://github.com/SharkyRawr/python-hashlib-benchmark ,,\n")
-        f.write("# This file has been created on a: " + platform.processor() + ',,\n')
+        f.write("# This file has been created on a: " +
+                platform.processor() + ',,\n')
         f.write('Hash,Duration in ns,bytes per second\n')
         if tqdm:
             pb = tqdm.tqdm(total=len(list(hashlib.algorithms_available)))
